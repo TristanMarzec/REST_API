@@ -8,6 +8,8 @@ requestAccepted = flask.Response(status=200)
 
 jsonFormat = "application/json"
 
+methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'UPDATE', 'OPTIONS']
+
 
 def check_object(data, object):
         if type(data) == NoneType:
@@ -23,7 +25,7 @@ def check_object(data, object):
 
 
 class Request:
-    def __init__(self, method, header, requestObject, responseObject):
+    def __init__(self, method: str, header: str, requestObject, responseObject):
         self.method = method
         self.header = header
         self.requestObject = requestObject

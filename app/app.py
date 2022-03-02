@@ -6,6 +6,7 @@ from controller.entry_controller import entry_bp
 
 app = Flask(__name__)
 
+
 app.register_blueprint(list_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(entry_bp)

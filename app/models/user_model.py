@@ -36,7 +36,7 @@ def get_user(id):
 
 class User:
 
-    def __init__(self, name, age, password):
+    def __init__(self, name: str, age: int, password: str):
         self.name = name
         self.age = age
         self.password = password

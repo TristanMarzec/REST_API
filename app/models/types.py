@@ -46,3 +46,7 @@ userListBuilder = {
 emptyList = []
 
 userID = ""
+
+listsBuilder = {
+    "lists": []
+}

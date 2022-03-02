@@ -6,25 +6,31 @@ from models.types import entryBuilder
 from models.entry_model import Entry
 from models.request_model import check_object
 
-lists = []
+
+listOfLists = {
+        "lists": []
+}
 
 
 def lists_length():
-    numOfLists = len(lists)
+    numOfLists = len(listOfLists["lists"])
     return numOfLists
 
 def check_existing_list(listId):
     if lists_length() == 0:
         return False
-    for x in lists:
+    for x in listOfLists["lists"]:
         if x["id"] == listId:
             return True
     return False
 
 def get_list(listId):
-    for x in lists:
+    for x in listOfLists["lists"]:
         if x["id"] == listId:
             return x
+
+def get_all_lists():
+    return listOfLists
 
 def init_list_instance(listId):
     if check_existing_list(listId):
@@ -41,6 +47,21 @@ def init_new_list(data):
     return newList.add_list()
 
 class List:
+    """
+    Die Klasse List stellt eine ToDo-Liste für die REST Schnittstelle dar
+
+    Attributes
+    ----------
+    
+    listName : str
+        Name der ToDo-Liste
+    entries : list
+        Die Liste der verschiedenen Einträge
+    id : str
+        Die ID der Liste
+    userId : str
+        Die ID des Authors der Liste
+    """
     def __init__(self, listName, entries, userId):
         self.listName = listName
         self.entries = entries
@@ -74,6 +95,9 @@ class List:
         return self.userId
 
     def get_list_object(self):
+        """
+        Diese Methode definiert ein List Objekt und gibt es zurück
+        """
         listObject = {
             "id": self.get_id(),
             "name": self.get_list_name(),
@@ -85,13 +109,29 @@ class List:
     ### Methods ###
     
     def add_list(self):
+        """
+        Hiermit wird eine Liste hinzugefügt
+
+        Returns
+        -------
+        listToAdd gibt eine Liste 
+        """
         self.set_entries(self.check_for_entries())
         listToAdd = self.get_list_object()
-        lists.append(listToAdd)
+        listOfLists["lists"].append(listToAdd)
         return listToAdd
     
     def remove_list(self):
+        """
+        Die Methode löscht eine Liste
+
+        Returns
+        -------
+
+        lists gibt die vorhandenen Listen zurück
+        """
         listToRemove = self.get_list_object()
+        lists = listOfLists["lists"]
         lists.remove(listToRemove)
         return lists
     
