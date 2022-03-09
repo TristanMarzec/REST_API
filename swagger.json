@@ -8,7 +8,6 @@
   "host": "127.0.0.1:5000",
   "basePath": "/",
   "schemes": [
-    "https",
     "http"
   ],
   "paths": {
@@ -41,6 +40,32 @@
             "description": "",
             "schema": {
               "$ref": "#/definitions/List"
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/lists/": {
+      "get": {
+        "tags": [
+          "Liste"
+        ],
+        "description": "Gibt alle Listen zurück",
+        "operationId": "getLists",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ArrayOfLists"
             }
           },
           "500": {
@@ -143,7 +168,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/List"
+              "$ref": "#/definitions/Entry"
             }
           },
           "500": {
@@ -260,7 +285,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/User"
+              "$ref": "#/definitions/ArrayOfUsers"
             }
           },
           "500": {
@@ -337,14 +362,28 @@
     }
   },
   "definitions": {
+    "ArrayOfLists": {
+      "type": "object",
+      "properties": {
+        "lists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/List"
+          }
+        }
+      }
+    },
     "List": {
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string",
+          "readOnly": true
         },
         "name": {
+          "type": "string"
+        },
+        "userId": {
           "type": "string"
         },
         "entries": {
@@ -361,18 +400,30 @@
         "name": {
           "type": "string"
         },
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "entryId": {
+          "type": "string",
+          "readOnly": true
         },
         "content": {
           "type": "string"
         },
         "listId": {
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         },
         "userId": {
           "type": "string"
+        }
+      }
+    },
+    "ArrayOfUsers": {
+      "type": "object",
+      "properties": {
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
         }
       }
     },
@@ -380,8 +431,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "integer",
-          "format": "int64"
+          "type": "string",
+          "readOnly": true
         },
         "name": {
           "type": "string"
@@ -389,6 +440,9 @@
         "age": {
           "type": "integer",
           "format": "int64"
+        },
+        "password": {
+          "type": "string"
         }
       }
     }
